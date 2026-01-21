@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Asistencias Empresarial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="loginContainer" class="container">
+  <h2>Sistema de Asistencia Carrera</h2>
+  <select id="loginRole">
+    <option value="admin">Administrador</option>
+    <option value="employee">Empleado</option>
+  </select>
+  <input type="password" id="loginPassword" placeholder="Contraseña">
+  <button type="button" onclick="login()">Ingresar</button>
+</div>
+
+<div id="systemContainer" class="container" style="display:none;">
+  <button onclick="logout()" class="logout">Cerrar Sesión</button>
+
+  <h1>Sistema de Asistencias</h1>
+
+  <!-- SOLO EMPLEADO -->
+  <div class="employee-only">
+    <h2>Registrar Asistencia</h2>
+    <input type="text" id="barcodeInput" placeholder="Escanee código de barras" autofocus>
+    <button type="button" onclick="checkInBarcode()">Entrada</button>
+    <button type="button" onclick="checkOutBarcode()">Salida</button>
+  </div>
+
+  <!-- SOLO ADMIN -->
+  <div class="admin-only">
+
+    <h2>Registrar Empleado</h2>
+    <input type="text" id="name" placeholder="Nombre completo">
+    <input type="text" id="code" placeholder="Código de barras">
+    <input type="number" id="salary" placeholder="Sueldo diario">
+    <button type="button" onclick="addEmployee()">Guardar</button>
+
+    <h3>Buscar por trabajador</h3>
+    <input type="text" id="searchEmployee" placeholder="Nombre del trabajador" onkeyup="searchByEmployee()">
+
+    <h2>Reporte por Fechas</h2>
+    Desde: <input type="date" id="fromDate">
+    Hasta: <input type="date" id="toDate">
+    <button type="button" onclick="filterByDates()">Generar Reporte</button>
+
+    <table>
+      <thead>
+        <tr><th>Trabajador</th><th>Total a Pagar</th></tr>
+      </thead>
+      <tbody id="reportTable"></tbody>
+    </table>
+
+    <h2>Empleados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>Sueldo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="employeeTable"></tbody>
+    </table>
+
+    <h2>Asistencias</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Empleado</th>
+          <th>Fecha</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Tardanza</th>
+          <th>Pago Neto</th>
+          <th>Descuento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceTable"></tbody>
+    </table>
+
+    <button type="button" onclick="exportToExcel()">Exportar a Excel</button>
+    <input type="file" id="excelFile" accept=".xlsx,.xls">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
